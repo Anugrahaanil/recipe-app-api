@@ -12,7 +12,6 @@ from rest_framework.test import APIClient
 
 from core.models import Recipe
 
-from recipe.serializers import RecipeSerializer
 from recipe.serializers import (
     RecipeSerializer,
     RecipeDetailSerializer,
@@ -67,10 +66,7 @@ class PrivateRecipeApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.user = get_user_model().objects.create_user(
-            'user1@example.com',
-            'testpass123',
-        )
+        
         self.user = create_user(email='user1@example.com', password='test123')
         self.client.force_authenticate(self.user)
 
