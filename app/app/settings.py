@@ -23,9 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-2176rz@k1pyserr4)u1-52z%f@e5%ec^oftofw_7_#pnvpk42#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', 1)))
+# DEBUG = False
 
+# ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        os.environ.get('ALLOWED_HOSTS', '').split(','),
+    )
+)
 
 
 # Application definition
@@ -42,6 +50,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'core',
     'user',
+    'recipe',
 ]
 
 MIDDLEWARE = [
